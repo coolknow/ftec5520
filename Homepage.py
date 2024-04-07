@@ -38,7 +38,7 @@ st.title("Welcome to the Medical Record Sharing System")
 #menu = ["Login", "Upload Record", "Access Record"]
 #choice = st.sidebar.selectbox("Menu", menu)
 
-st.markdown('<p style="font-size: 20px;">If you are a doctor, please click on "Doctor Login" in the left sidebar and log in to continue.</p>', unsafe_allow_html=True)
+st.markdown('<p style="font-size: 20px;">If you are a doctor, please click on "Doctor Login" in the left sidebar to log in.</p>', unsafe_allow_html=True)
 
 #
 # if choice == "Login":

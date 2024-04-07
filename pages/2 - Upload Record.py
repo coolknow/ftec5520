@@ -25,4 +25,4 @@ if 'token' in st.session_state:
     if st.button("Upload Record"):
         upload_record(st.session_state['token'], doctor_id, patient_id, diagnosis, image)
 else:
-    st.warning("Please login to continue.")
+    st.warning("You must be logged in to view this page.")

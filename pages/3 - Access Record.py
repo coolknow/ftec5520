@@ -25,4 +25,4 @@ if 'token' in st.session_state:
         for record in records:
             st.json(record)
 else:
-    st.warning("Please login to continue.")
+    st.warning("You must be logged in to view this page.")
