@@ -33,12 +33,12 @@ def access_record(token, patient_id):
         return []
 
 # UI
-st.title("Medical Record Sharing System")
+st.title("Welcome to the Medical Record Sharing System")
 
 #menu = ["Login", "Upload Record", "Access Record"]
 #choice = st.sidebar.selectbox("Menu", menu)
-c = st.container()
-c.write("Hi")
+
+st.markdown('<p style="font-size: 20px;">If you are a doctor, please click on "Doctor Login" in the left sidebar and log in to continue.</p>', unsafe_allow_html=True)
 
 #
 # if choice == "Login":
