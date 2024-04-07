@@ -8,7 +8,7 @@ pip install flask streamlit requests
 ## Frontend
 new terminal
 ```
-streamlit run app.py
+streamlit run Homepage.py
 ```
 
 
