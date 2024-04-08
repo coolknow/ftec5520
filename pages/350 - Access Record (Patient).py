@@ -4,8 +4,8 @@ import requests
 # Assuming your Flask API is running on localhost:5000
 API_BASE_URL = "http://localhost:5000"
 
-def access_record(token, patient_id):
-    headers = {'Authorization': token}
+def access_record(patient_private_key, patient_id):
+    headers = {'Authorization': patient_private_key}
     response = requests.get(f"{API_BASE_URL}/access_record", params={'patient_id': patient_id}, headers=headers)
     if response.status_code == 200:
         records = response.json().get('records', [])
@@ -15,13 +15,13 @@ def access_record(token, patient_id):
         return []
 
 # UI
-st.title("Access Record")
+st.title("Access Record (Patient)")
 
-if 'token' in st.session_state:
+if 'patient_private_key' in st.session_state:
     st.subheader("Access Patient Record")
     patient_id = st.text_input("Patient ID", key="patient_id_access")
     if st.button("Access Record"):
-        records = access_record(st.session_state['token'], patient_id)
+        records = access_record(st.session_state['patient_private_key'], patient_id)
         for record in records:
             st.json(record)
 else:
