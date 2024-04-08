@@ -20,6 +20,7 @@ class BlockPoW:
         block_string = "{}{}{}{}{}".format(self.index, self.transactions, self.timestamp, self.previous_hash, self.nonce)
         return hashlib.sha256(block_string.encode()).hexdigest()
     
+    
 
 class BlockchainPoW:
     def __init__(self):
@@ -58,11 +59,46 @@ class BlockchainPoW:
     
 bc = BlockchainPoW()
 
+@app.route('/login', methods=['POST'])
+def login():
+    doctor_private_key = request.form.get('doctor_private_key')
+    if doctor_private_key:
+        return jsonify(doctor_private_key=doctor_private_key)
+    else:
+        # Handle the case where 'doctor_private_key' is not in the form data
+        return "Missing doctor_private_key", 400
+
+# 用于Register，Edit，Upload，
 @app.route('/addBlock', methods=['POST'])
 def addBlock():
     data = request.json
     bc.add_block("add")
     return jsonify(username=data['username'], password=data['password'])
+
+
+@app.route('/upload_record', methods=['POST'])
+def upload_record():
+    doctor_key = request.form.get('doctor_private_key')
+    patient_key = request.form.get('patient_key')
+    diagnosis = request.form.get('diagnosis')
+    bc.add_block(str(diagnosis))
+    # 写入csv
+    return jsonify(doctor_key=doctor_key)
+
+# 用于Retrieve信息
+@app.route('/access_record', methods=['GET'])
+def get_records():
+    # 这里，我们创建一个示例数据列表来模拟从数据库或其他源获取的记录。
+    # 在实际应用中，你应该根据需要从数据库或其他数据源获取这些记录。
+    example_records = [
+        {'id': 1, 'record': 'Record 1'},
+        {'id': 2, 'record': 'Record 2'},
+        # 更多记录...
+    ]
+
+    # 使用 jsonify 函数返回一个JSON格式的响应，
+    # 其中包含一个名为 'records' 的键，值为上面定义的记录列表。
+    return jsonify({'records': example_records})
 
 @app.route('/check', methods=['GET'])
 def getBCInfo():
