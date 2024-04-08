@@ -1,4 +1,4 @@
-Patientimport streamlit as st
+import streamlit as st
 import requests
 
 # Assuming your Flask API is running on localhost:5000
