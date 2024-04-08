@@ -29,9 +29,6 @@ if 'patient_private_key' in st.session_state:
     if st.button("Access Record"):
         records = access_record(st.session_state['patient_private_key'], patient_id)
 
-        print("Records:", records)
-        print("33", len(records))
-
         noOfRecords = len(records)
         if noOfRecords == 0:
             st.markdown(f'<p style="font-size: 16px; text-align: center;">No records found.</p>', unsafe_allow_html=True)
