@@ -2,7 +2,7 @@
 
 ## Install
 ```
-pip install flask streamlit requests
+pip install flask streamlit requests st-pages
 ```
 
 ## Frontend
