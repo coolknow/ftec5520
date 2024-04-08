@@ -4,8 +4,8 @@ import requests
 # Assuming your Flask API is running on localhost:5000
 API_BASE_URL = "http://localhost:5000"
 
-def login(patient_id, password):
-    response = requests.post(f"{API_BASE_URL}/login", data={'patient_id': patient_id, 'password': password})
+def login(role = 'Patient', patient_id, password):
+    response = requests.post(f"{API_BASE_URL}/login", data={'role': role, 'patient_id': patient_id, 'password': password})
     if response.status_code == 200:
         return response.json().get('token')
     else:
