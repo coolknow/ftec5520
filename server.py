@@ -88,11 +88,11 @@ def upload_record():
 
 @app.route('/edit_profile', methods=['POST'])
 def edit_profile():
-    patient_private_key_upload = request.form.get('patient_private_key_upload')
-    patient_public_key_upload = request.form.get('patient_public_key_upload')
-    bc.add_block("Edit patient")
+    private_key = request.form.get('private_key')
+    public_key = request.form.get('public_key')
+    bc.add_block("Edit profile")
     # 写入csv
-    return jsonify(patient_private_key=patient_private_key_upload, patient_public_key=patient_public_key_upload)
+    return jsonify(private_key=private_key, public_key=public_key)
 
 
 

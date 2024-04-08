@@ -5,7 +5,7 @@ import requests
 API_BASE_URL = "http://localhost:5000"
 
 def edit(patient_private_key, patient_private_key_upload, patient_public_key_upload):
-    data = {'patient_private_key_upload': patient_private_key_upload, 'patient_public_key_upload': patient_public_key_upload}
+    data = {'private_key': patient_private_key_upload, 'public_key': patient_public_key_upload}
     headers = {'Authorization': patient_private_key}
     response = requests.post(f"{API_BASE_URL}/edit_profile", data=data, headers=headers)
     if response.status_code == 200:

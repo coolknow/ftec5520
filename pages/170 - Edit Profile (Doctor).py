@@ -4,25 +4,22 @@ import requests
 # Assuming your Flask API is running on localhost:5000
 API_BASE_URL = "http://localhost:5000"
 
-def upload_record(token, doctor_id, patient_id, diagnosis, image):
-    files = {'image': image} if image is not None else None
-    data = {'doctor_id': doctor_id, 'patient_id': patient_id, 'diagnosis': diagnosis}
-    headers = {'Authorization': token}
-    response = requests.post(f"{API_BASE_URL}/upload_record", files=files, data=data, headers=headers)
+def edit(doctor_private_key, doctor_private_key_upload, doctor_public_key_upload):
+    data = {'private_key': doctor_private_key_upload, 'public_key': doctor_public_key_upload}
+    headers = {'Authorization': doctor_private_key}
+    response = requests.post(f"{API_BASE_URL}/edit_profile", data=data, headers=headers)
     if response.status_code == 200:
-        st.success("Record uploaded successfully.")
+        st.success("Profile edited successfully.")
     else:
-        st.error("Failed to upload the record.")
+        st.error("Failed to edit the profile.")
 
 # UI
-st.title("Upload Record")
-if 'token' in st.session_state:
-    st.subheader("Upload Patient Record")
-    doctor_id = st.text_input("Doctor ID", key="doctor_id_upload")
-    patient_id = st.text_input("Patient ID")
-    diagnosis = st.text_area("Diagnosis")
-    image = st.file_uploader("Upload Image", type=['png', 'jpg', 'jpeg', 'gif'])
-    if st.button("Upload Record"):
-        upload_record(st.session_state['token'], doctor_id, patient_id, diagnosis, image)
+st.title("Edit Profile (Doctor)")
+if 'doctor_private_key' in st.session_state:
+    st.subheader("Edit Doctor Profile")
+    doctor_private_key_upload = st.text_input("Doctor's private key", key="doctor_private_key_upload")
+    doctor_public_key_upload = st.text_input("Doctor's public key", key="doctor_public_key_upload")
+    if st.button("Edit Profile"):
+        edit(st.session_state['doctor_private_key'], doctor_private_key_upload, doctor_public_key_upload)
 else:
     st.warning("You must be logged in to view this page.")
