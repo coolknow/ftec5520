@@ -18,6 +18,7 @@ if 'patient_private_key' in st.session_state:
     st.markdown(f"""<p style="font-size: 16px; text-align: right;">Logged in as Patient {st.session_state['patient_private_key']}</p>""", unsafe_allow_html=True)
 
 st.title("Edit Profile (Patient)")
+
 if 'patient_private_key' in st.session_state:
     st.subheader("Edit Patient Profile")
     patient_private_key_upload = st.text_input("Patient's private key", key="patient_private_key_upload")

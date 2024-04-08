@@ -24,4 +24,4 @@ if 'patient_private_key' not in st.session_state:
         st.rerun()
 else:
     patient_private_key = st.session_state['patient_private_key']
-    st.write(f'Welcome {patient_private_key}')
+    st.write(f'Welcome, {patient_private_key}')
