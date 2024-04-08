@@ -1,5 +1,7 @@
 import streamlit as st
+import pandas as pd
 import requests
+import json
 
 # Assuming your Flask API is running on localhost:5000
 API_BASE_URL = "http://localhost:5000"
@@ -26,7 +28,34 @@ if 'patient_private_key' in st.session_state:
     patient_id = st.text_input("Patient ID", key="patient_id_access")
     if st.button("Access Record"):
         records = access_record(st.session_state['patient_private_key'], patient_id)
-        for record in records:
-            st.json(record)
+
+        print("Records:", records)
+        print("33", len(records))
+
+        noOfRecords = len(records)
+        if noOfRecords == 0:
+            st.markdown(f'<p style="font-size: 16px; text-align: center;">No records found.</p>', unsafe_allow_html=True)
+        else:
+            i = 0
+            recordsArray = [['' for cols in range(len(records[0]))] for rows in range(len(records))]
+
+            for record in records:
+                recordsArray[i][0] = str(record['id'])
+                recordsArray[i][1] = record['record']
+                i += 1
+
+            df = pd.DataFrame(data=recordsArray, columns=("ID", "Record"))
+            st.dataframe(df, hide_index=True)
+            # st.markdown("<table><tr><th>ID</th><th>Record</th>")
+            #
+            # for record in records:
+            #     st.markdown("<tr><td>")
+            #     st.write(record)
+            #     st.markdown("<td>2024-04-08</td></tr>")
+            #
+            #     #st.json(record)
+            #
+            # st.markdown("</table>")
+
 else:
     st.warning("You must be logged in to view this page.")

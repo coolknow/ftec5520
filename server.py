@@ -104,6 +104,7 @@ def get_records():
     example_records = [
         {'id': 1, 'record': 'Record 1'},
         {'id': 2, 'record': 'Record 2'},
+        {'id': 3, 'record': 'Record 3'},
         # 更多记录...
     ]
 
