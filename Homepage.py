@@ -39,7 +39,7 @@ st.title("Welcome to the Medical Record Sharing System")
 #choice = st.sidebar.selectbox("Menu", menu)
 
 st.markdown('<p style="font-size: 20px;">If you are a doctor, please click on "Doctor Login" in the left sidebar to log in.</p>', unsafe_allow_html=True)
-
+st.markdown('<p style="font-size: 20px;">If you are a patient, please click on "Patient Login" in the left sidebar to log in.</p>', unsafe_allow_html=True)
 #
 # if choice == "Login":
 #     st.subheader("Doctor Login")
