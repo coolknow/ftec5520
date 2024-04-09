@@ -1,3 +1,3 @@
-private_key,diagnosis,timestamp
-"1234","Patient ok","2024-03-03 13:30:00.000"
-"1234","Right ankle inflammed","2024-03-04 13:30:00.000"
+private_key,diagnosis,publicity,timestamp
+"1234","Patient ok","Public","2024-03-03 13:30:00.000"
+"1234","Right ankle inflammed","Private","2024-03-04 13:30:00.000"
