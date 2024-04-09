@@ -4,6 +4,8 @@ import random
 import hashlib
 import time
 from flask import Flask, request, jsonify
+import csv
+from datetime import datetime
 
 app = Flask(__name__)
 
@@ -85,14 +87,24 @@ def upload_record():
     # 写入csv
     return jsonify(doctor_key=doctor_key)
 
-
 @app.route('/edit_profile', methods=['POST'])
 def edit_profile():
+    role = request.form.get('role')
     private_key = request.form.get('private_key')
     public_key = request.form.get('public_key')
+    name = request.form.get('name')
+    timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+
     bc.add_block("Edit profile")
+
     # 写入csv
-    return jsonify(private_key=private_key, public_key=public_key)
+    filename = 'basic_information.csv'
+
+    with open(filename, 'a') as csvFile:
+        write = csv.writer(csvFile, quoting=csv.QUOTE_ALL)
+        write.writerow([role, private_key, public_key, name, timestamp])
+
+    return jsonify(role=role, private_key=private_key, public_key=public_key, name=name, timestamp=timestamp)
 
 
 
