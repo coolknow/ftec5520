@@ -16,7 +16,7 @@ def upload_record(token, doctor_id, patient_id, diagnosis, image):
 
 # UI
 st.title("Upload Record")
-if 'token' in st.session_state:
+if 'doctor_private_key' in st.session_state:
     st.subheader("Upload Patient Record")
     doctor_id = st.text_input("Doctor ID", key="doctor_id_upload")
     patient_id = st.text_input("Patient ID")
