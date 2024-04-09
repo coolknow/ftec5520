@@ -15,6 +15,9 @@ def access_record(token, patient_id):
         return []
 
 # UI
+if 'doctor_private_key' in st.session_state:
+    st.markdown(f"""<p style="font-size: 16px; text-align: right;">Logged in as Doctor {st.session_state['doctor_private_key']}</p>""", unsafe_allow_html=True)
+
 st.title("Access Record")
 
 if 'token' in st.session_state:
