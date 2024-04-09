@@ -44,15 +44,15 @@ if 'patient_private_key' in st.session_state:
                 if record['private_key'] == st.session_state['patient_private_key']:
                     recordsList[i][0] = record['private_key']
                     recordsList[i][1] = record['diagnosis']
-                    recordsList[i][2] = record['sharing']
+                    recordsList[i][3] = record['sharing']
 
                     # 时间戳只取年月日时分
-                    recordsList[i][3] = datetime.strptime(record['timestamp'], '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M')
+                    recordsList[i][2] = datetime.strptime(record['timestamp'], '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M')
                     i += 1
 
             recordsArray = np.array(recordsList)
 
-            df = pd.DataFrame(data=recordsArray[:, 1:4], columns=("Diagnosis", "Sharing", "Date & Time"))
+            df = pd.DataFrame(data=recordsArray[:, 1:4], columns=("Diagnosis", "Date & Time", "Sharing"))
             st.dataframe(df, hide_index=True)
 else:
     st.warning("You must be logged in to view this page.")

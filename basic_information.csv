@@ -10,3 +10,5 @@ role,private_key,public_key,name,timestamp
 "Doctor","1234","5678","Doctor Five","2024-02-27 07:23:45.678000"
 "Patient","2345","6789","Patient Five","2024-02-28 04:00:00.000000"
 "Doctor","1234","5678","Doctor Threeasdqdw","2024-04-09 18:37:14.768125"
+"Patient","2345","6789","Patient Threeqw","2024-04-09 21:40:44.777566"
+"Doctor","1234","5678","Doctor Chan","2024-04-09 21:44:01.404851"
