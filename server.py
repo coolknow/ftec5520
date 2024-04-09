@@ -113,12 +113,33 @@ def edit_profile():
 def get_records():
     # 这里，我们创建一个示例数据列表来模拟从数据库或其他源获取的记录。
     # 在实际应用中，你应该根据需要从数据库或其他数据源获取这些记录。
-    example_records = [
-        {'id': 1, 'record': 'Record 1'},
-        {'id': 2, 'record': 'Record 2'},
-        {'id': 3, 'record': 'Record 3'},
-        # 更多记录...
-    ]
+    # example_records = [
+    #     {'id': 1, 'record': 'Record 1'},
+    #     {'id': 2, 'record': 'Record 2'},
+    #     {'id': 3, 'record': 'Record 3'},
+    #     # 更多记录...
+    # ]
+
+    filename = 'medical_records.csv'
+    example_records = []
+
+    with open(filename, 'r', encoding='UTF-8', newline='') as csvFile:
+        csvReader = csv.reader(csvFile, delimiter=',', quotechar='\"')
+        rowCount = 0
+
+        for row in csvReader:
+            rowCount += 1
+
+            if rowCount == 1:
+                continue
+
+            if len(row) == 0:
+                continue
+
+            if row[0] == request.form.get('private_key'):
+                example_records.append({'private_key': row[0], 'diagnosis': row[1], 'sharing': row[2], 'timestamp': row[3]})
+
+    csvFile.close()
 
     # 使用 jsonify 函数返回一个JSON格式的响应，
     # 其中包含一个名为 'records' 的键，值为上面定义的记录列表。

@@ -1,3 +1,5 @@
-private_key,diagnosis,publicity,timestamp
-"1234","Patient ok","Public","2024-03-03 13:30:00.000000"
-"1234","Right ankle inflammed","Private","2024-03-04 13:30:00.000000"
+private_key,diagnosis,sharing,timestamp
+"2345","Patient ok","Public","2024-03-03 13:30:00.000000"
+"2345","Right ankle inflamed","Private","2024-03-04 13:30:00.000000"
+"4567","Patient fever 38.0C","Public","2024-03-05 16:30:00.000000"
+"4567","Bruise on left arm","Private","2024-03-06 17:15:00.000000"

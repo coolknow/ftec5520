@@ -1,14 +1,18 @@
 import streamlit as st
 import pandas as pd
+import numpy as np
 import requests
 import json
+from datetime import datetime
 
 # Assuming your Flask API is running on localhost:5000
 API_BASE_URL = "http://localhost:5000"
 
-def access_record(patient_private_key, patient_id):
+def access_record(patient_private_key):
+    data = {'private_key': patient_private_key}
     headers = {'Authorization': patient_private_key}
-    response = requests.get(f"{API_BASE_URL}/access_record", params={'patient_id': patient_id}, headers=headers)
+    #response = requests.get(f"{API_BASE_URL}/access_record", params={'patient_id': patient_id}, headers=headers)
+    response = requests.get(f"{API_BASE_URL}/access_record", data=data, headers=headers)
     if response.status_code == 200:
         records = response.json().get('records', [])
         return records
@@ -23,36 +27,32 @@ if 'patient_private_key' in st.session_state:
 st.title("Access Record (Patient)")
 
 if 'patient_private_key' in st.session_state:
-    st.subheader("Access Patient Record")
+    st.subheader("Here are your medical records:")
 
-    patient_id = st.text_input("Patient ID", key="patient_id_access")
-    if st.button("Access Record"):
-        records = access_record(st.session_state['patient_private_key'], patient_id)
+    with st.spinner(text="Loading..."):
+        # patient_id = st.text_input("Patient ID", key="patient_id_access")\
+        records = access_record(st.session_state['patient_private_key'])
 
         noOfRecords = len(records)
         if noOfRecords == 0:
             st.markdown(f'<p style="font-size: 16px; text-align: center;">No records found.</p>', unsafe_allow_html=True)
         else:
             i = 0
-            recordsArray = [['' for cols in range(len(records[0]))] for rows in range(len(records))]
+            recordsList = [['' for cols in range(len(records[0]))] for rows in range(len(records))]
 
             for record in records:
-                recordsArray[i][0] = str(record['id'])
-                recordsArray[i][1] = record['record']
-                i += 1
+                if record['private_key'] == st.session_state['patient_private_key']:
+                    recordsList[i][0] = record['private_key']
+                    recordsList[i][1] = record['diagnosis']
+                    recordsList[i][2] = record['sharing']
 
-            df = pd.DataFrame(data=recordsArray, columns=("ID", "Record"))
+                    # 时间戳只取年月日时分
+                    recordsList[i][3] = datetime.strptime(record['timestamp'], '%Y-%m-%d %H:%M:%S.%f').strftime('%Y-%m-%d %H:%M')
+                    i += 1
+
+            recordsArray = np.array(recordsList)
+
+            df = pd.DataFrame(data=recordsArray[:, 1:4], columns=("Diagnosis", "Sharing", "Date & Time"))
             st.dataframe(df, hide_index=True)
-            # st.markdown("<table><tr><th>ID</th><th>Record</th>")
-            #
-            # for record in records:
-            #     st.markdown("<tr><td>")
-            #     st.write(record)
-            #     st.markdown("<td>2024-04-08</td></tr>")
-            #
-            #     #st.json(record)
-            #
-            # st.markdown("</table>")
-
 else:
     st.warning("You must be logged in to view this page.")
