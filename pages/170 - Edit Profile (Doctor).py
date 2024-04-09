@@ -37,7 +37,7 @@ def get_latest_record(doctor_private_key):
                         latest_record = row
 
     csvFile.close()
-    
+
     return latest_record
 
 def edit(doctor_private_key, doctor_private_key_upload, doctor_public_key_upload, doctor_name_upload):
@@ -65,7 +65,8 @@ if 'doctor_private_key' in st.session_state:
     doctor_public_key_upload = st.text_input("Doctor's public key", value=row[2], key="doctor_public_key_upload")
     doctor_name_upload = st.text_input("Doctor's name", value=row[3], key="doctor_name_upload")
 
-    if st.button("Edit Profile"):
-        edit(st.session_state['doctor_private_key'], doctor_private_key_upload, doctor_public_key_upload, doctor_name_upload)
+    with st.spinner(text="Processing..."):
+        if st.button("Edit Profile"):
+            edit(st.session_state['doctor_private_key'], doctor_private_key_upload, doctor_public_key_upload, doctor_name_upload)
 else:
     st.warning("You must be logged in to view this page.")

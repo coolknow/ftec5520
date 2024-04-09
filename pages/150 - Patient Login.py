@@ -18,10 +18,12 @@ st.title("Login")
 if 'patient_private_key' not in st.session_state:
     st.subheader("Patient Login")
     patient_private_key = st.text_input("Patient ID")
-    if st.button("Login"):
-        token = login(patient_private_key)
-        st.session_state['patient_private_key'] = patient_private_key
-        st.rerun()
+
+    with st.spinner(text="Logging in..."):
+        if st.button("Login"):
+            token = login(patient_private_key)
+            st.session_state['patient_private_key'] = patient_private_key
+            st.rerun()
 else:
     patient_private_key = st.session_state['patient_private_key']
     st.write(f'Welcome, {patient_private_key}')
