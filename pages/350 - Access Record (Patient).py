@@ -84,7 +84,7 @@ if 'patient_private_key' in st.session_state:
 
             recordsArray = np.array(recordsList)
 
-            df = pd.DataFrame(data=recordsArray[indicesToShow, 0:6], columns=("Private Key", "Diagnosis Date", "Diagnosis", "Sharing", "Full Diagnosis Date", "Last Update Date"))
+            df = pd.DataFrame(data=recordsArray[indicesToShow], columns=("Private Key", "Diagnosis Date", "Diagnosis", "Sharing", "Full Diagnosis Date", "Last Update Date"))
 
             if "df_value" not in st.session_state:
                 st.session_state.df_value = df
