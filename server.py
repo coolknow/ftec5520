@@ -137,13 +137,30 @@ def get_records():
                 continue
 
             if row[0] == request.form.get('private_key'):
-                example_records.append({'private_key': row[0], 'diagnosis': row[1], 'sharing': row[2], 'timestamp': row[3]})
+                example_records.append({'private_key': row[0], 'diagnosis': row[1], 'sharing': row[2], 'diagnosis_date': row[3], 'last_update_date': row[4]})
 
     csvFile.close()
 
     # 使用 jsonify 函数返回一个JSON格式的响应，
     # 其中包含一个名为 'records' 的键，值为上面定义的记录列表。
     return jsonify({'records': example_records})
+
+@app.route('/update_sharing', methods=['POST'])
+def update_sharing():
+    private_key = request.form.get('private_key')
+    diagnosis = request.form.get('diagnosis')
+    sharing = "Public" if request.form.get('sharing') == "True" else "Private"
+    full_diagnosis_date = request.form.get('full_diagnosis_date')
+
+    # 写入csv
+    filename = 'medical_records.csv'
+
+    with open(filename, 'a') as csvFile:
+        timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+        write = csv.writer(csvFile, quoting=csv.QUOTE_ALL)
+        write.writerow([private_key, diagnosis, sharing, full_diagnosis_date, timestamp])
+
+    return jsonify(private_key=private_key, diagnosis=diagnosis, sharing=sharing, full_diagnosis_date=full_diagnosis_date)
 
 @app.route('/check', methods=['GET'])
 def getBCInfo():
