@@ -2,6 +2,9 @@
 
 ![](architecture.jpg)
 
+## Video
+
+
 ## Description
 MedChain is a secure and immutable medical record system designed to leverage the strengths of blockchain technology. By providing a platform for patients and doctors to access and create medical records, MedChain ensures privacy and security through encrypted transactions. The system logs every change to create an immutable history of medical records. Developed using Streamlit and Flask in Python, MedChain utilizes a proof of work algorithm for block mining.
 
