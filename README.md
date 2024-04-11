@@ -16,17 +16,10 @@ MedChain is a secure and immutable medical record system designed to leverage th
 Detailed steps to install and configure the MedChain system.
 ```
 pip install flask streamlit requests st-pages
-```
 
-## Frontend
-new terminal
-```
+# New terminal to run Frontend
 streamlit run Homepage.py
-```
 
-
-## Backend
-new terminal
-```
+New terminal to run Backend
 python server.py
 ```
